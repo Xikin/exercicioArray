@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="">Informe o tamanho do array</label><br>
+    <input id="tamanho" onchange="verificaMax()" type="number">
+    <button id="inserir" onclick="incrementarOrdenando()">Enviar Tamanho</button><br>
+    <input type="number" name="" disabled onclick="verificaMax()" id="num">
+    <button id="enviar" onclick="incrementarOrdenando()">Enviar</button>
+    <button id="remove">Remover</button><br>
+    <textarea name="" id="showresults" cols="30" rows="10"></textarea>
+</body>
+<script>
+    var inserir = document.querySelector("#inserir")
+    var num = document.querySelector("#num")
+    var enviar = document.querySelector("#enviar")
+    var tamanho = document.querySelector("#tamanho")
+
+    var lista = [];
+
+    inserir.addEventListener('click', function () {
+        const lista = [tamanho.value];
+    });
+    
+    function verificaMax() {
+        if (tamanho != null) {
+            num.disabled = false;
+        }
+    }
+
+    function incrementarOrdenando() {
+        for (var i = 0; i < lista.length; i++) {
+            for (var j = i + 1; j < lista.length; j++) {
+                if (lista[i] > lista[j]) {
+                    temp = lista[i];
+                    lista[i] = lista[j];
+                    lista[j] = temp;
+                }
+            }
+        }
+    }
+
+    enviar.addEventListener('click', function () {
+        if (lista.length > tamanho.value) {
+
+            var message = "Numeros maximos excedidos!"
+            alert(message);
+        }
+
+        else {
+            lista.push(num.value);
+            incrementarOrdenando();
+            mostrarResultado();
+
+        }
+    });
+
+    remover = document.querySelector("#remove")
+
+    remover.addEventListener('click', function () {
+
+        num = document.querySelector("#reciveNumber").value
+        console.log(num)
+
+        for (var i = 0; i < lista.length; i++) {
+            if (lista[i] == num) {
+                lista[i] = lista[i + 1]
+                lista.splice(i, 1);
+                i--;
+            }
+        }
+        mostrarResultado();
+    });
+
+    function mostrarResultado() {
+        document.getElementById("showresults").innerHTML = lista;
+    }
+</script>
+
+</html>
